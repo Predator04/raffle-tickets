@@ -117,7 +117,9 @@ public class SettingsActivity extends Activity {
         input.setTextColor(TEXT);
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         input.setGravity(Gravity.TOP);
-        input.setMinLines(6);
+        input.setMinLines(4);
+        input.setMaxLines(8);
+        input.setVerticalScrollBarEnabled(true);
         input.setPadding(dp(16), dp(8), dp(16), dp(8));
         input.setBackground(glass(12));
 
@@ -129,6 +131,9 @@ public class SettingsActivity extends Activity {
                 .setNegativeButton("Cancel", null)
                 .create();
         d.show();
+        if (d.getWindow() != null) {
+            d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        }
         d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             String text = input.getText().toString();
             Matcher m = Pattern.compile("\\d+").matcher(text);
